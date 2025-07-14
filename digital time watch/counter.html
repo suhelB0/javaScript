@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Counter</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        html {
+            color: #fff;
+            font-size: 62.5%;
+        }
+        body {
+            height: 100vh;
+            background-color: #3b4156;
+            font-family: "Urbanist", sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        section {
+            width: 32rem;
+            height: 48rem;
+            background-color: #21232e;
+            text-align: center;
+            padding: 2.4rem;
+            border-radius: 1rem;
+            box-shadow: 0 1px 0px #343650, 0 2px 0px #343650, 0 3px 0px #343650,
+                0 4px 0px #343650, 0 5px 0px #343650, 0 6px 0px #343650, 0 7px 0px #343650,
+                0 8px 0px #343650, 0 9px 0px #343650, 0 10px 0px #343650;
+        }
+        p {
+            color: #fb6087;
+            font-size: 9.8rem;
+        }
+        .buttons {
+            width: 100%;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0 2.4rem;
+        }
+        button {
+            background-color: #fff;
+            margin: 0;
+            box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.1);
+            font-size: 1.7rem;
+            letter-spacing: 0.1rem;
+            font-family: "Urbanist", sans-serif;
+            line-height: 1.6;
+            border-radius: 20px;
+        }
+        .display p {
+            font-size: 1.8rem;
+            margin-top: 0.6rem;
+        }
+    </style>
+</head>
+<body>
+    <section>
+        <p id="countDown">0</p>
+        <div class="buttons">
+            <button class="start_btn">Start</button>
+            <button class="reset_btn">Reset</button>
+            <button class="stop_btn">Stop</button>
+            <button class="time_btn">getTime</button>
+            <button class="clear_btn">clearTime</button>
+        </div>
+        <div class="display"></div>
+    </section>
+
+    <script>
+        let countDownElement = document.getElementById('countDown');
+        let displayText = document.querySelector('.display');
+        let startCount = 0;
+        let intervalId;
+        const startTimer = () => {
+            intervalId = setInterval(()=>{
+                countDownElement.innerText = startCount++;
+            },1000);
+        };
+
+        const stopTimer = () => {
+            getTimer();
+            clearInterval(intervalId);
+        };
+
+        const resetTimer = () => {
+            startCount = 0;
+            countDownElement.innerText = startCount;
+            clearInterval(intervalId);
+        };
+
+        const getTimer = () => {
+            const newPara = document.createElement("p");
+            newPara.innerText = `The stop time is ${startCount - 1}`;
+            displayText.append(newPara);
+        };
+
+        const clearTimer = () => {
+            displayText.innerHTML = "";
+        };
+
+        document.querySelector('.start_btn').addEventListener('click',startTimer);
+        document.querySelector('.reset_btn').addEventListener('click',resetTimer);
+        document.querySelector('.stop_btn').addEventListener('click',stopTimer);
+        document.querySelector('.time_btn').addEventListener('click',getTimer);
+        document.querySelector('.clear_btn').addEventListener('click',clearTimer);
+    </script>
+</body>
+</html>
